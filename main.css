@@ -1,0 +1,54 @@
+.sales{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+
+}
+
+.herosection{
+    height:50px;
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;;
+    justify-content: space-around
+}
+
+.products{
+    border: 1px solid black;
+    width:80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.cart{
+    border: 1px solid black;
+    width: 20%;
+}
+
+.productcontainer{
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.productcontainer img{
+    margin-bottom:20px;
+    width:50%;
+    height:auto;
+}
+
+.card{
+    padding:2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 200px;
+    height: 300px;
+    margin-bottom: 10px;
+}
