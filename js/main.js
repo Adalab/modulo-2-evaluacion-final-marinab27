@@ -20,8 +20,11 @@ function renderProducts(products) {
         `;
         productContainer.appendChild(card);
     }
-    let addToCartButton = document.querySelectorAll(".js-add-to-cart");
-    addToCartButton.addEventListener("click", handleAddToCart);
+    let addToCartButtons = document.querySelectorAll(".js-add-to-cart");
+    addToCartButtons.forEach(button => {
+    button.addEventListener("click", handleAddToCart);
+});
+
 }
 
 
