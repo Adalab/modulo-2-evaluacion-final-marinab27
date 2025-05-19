@@ -68,7 +68,7 @@
 }
 
 .card {
-  padding: 1%;
+  padding: 4%;
   font-size: 12px;
   display: flex;
   flex-direction: column;
@@ -113,6 +113,7 @@
 .js-remove-from-cart {
   padding: 4px 10px;
   margin-top: 20px;
+  border: none;
   background-color: #b46a6a;
   color: white;
   border-radius: 5px;
@@ -121,7 +122,6 @@
 
 .selected {
   background-color: #b46a6a;
-
 }
 .button-container {
   display: flex;

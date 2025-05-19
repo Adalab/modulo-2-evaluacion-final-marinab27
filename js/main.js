@@ -58,7 +58,7 @@ const handleAddToCart = (event) => {
 
   // Si ya está en el carrito, lo quitamos
   const cartProduct = cart.findIndex((item) => item.id === productId);
-  //-1 implica que no existe porque no existe ese número en el array, si el producto no está en el array, lo añade y si está, no hace nada
+  //-1 implica que no existe porque no existe ese número en el array del carro, si el producto no está lo añade y si está, no hace nada
   if (cartProduct === -1) {
     cart.push(selectedProduct);
     button.textContent = "Añadido";
