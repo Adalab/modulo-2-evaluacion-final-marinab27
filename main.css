@@ -17,6 +17,10 @@
   height: 60px;
   text-align: center;
 }
+.herosection h1 {
+  font-weight: 700;
+  color: #548b7b;
+}
 
 .container {
   display: flex;
@@ -48,7 +52,9 @@
 
 .products h2 {
   margin-bottom: 20px;
+  font-weight: 500;
 }
+
 .cart {
   margin-left: 20px;
   padding: 20px;
@@ -56,11 +62,16 @@
   width: 30%;
 }
 
+.cart h2 {
+  font-weight: 500;
+}
+
 .productcontainer {
   gap: 20px;
   display: flex;
   flex-wrap: wrap;
 }
+
 .productcontainer img {
   margin-bottom: 20px;
   width: 50%;
@@ -137,4 +148,13 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
+}
+.js-empty-cart {
+  margin-top: 20px;
+  padding: 4px 10px;
+  border: none;
+  background-color: #b46a6a;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }

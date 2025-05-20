@@ -5,6 +5,7 @@ const url = "https://fakestoreapi.com/products";
 const productContainer = document.querySelector(".js-product-container"); //url de la api
 const searchButton = document.querySelector(".js-search-button"); //botón search de arriba
 const cartContainer = document.querySelector(".js-cart-container");
+const emptyCart = document.querySelector(".js-empty-cart");
 
 let products = []; //array para los productos
 let cart = []; // array vacío para el carrito
@@ -57,7 +58,6 @@ const handleAddToCart = (event) => {
   const productId = parseInt(button.id);
   const selectedProduct = products.find((product) => product.id === productId);
 
-  //-1 implica que no existe porque no existe ese número en el array del carro, si el producto no está lo añade y si está, no hace nada
   if (!cart.some((product) => product.id === productId)) {
     cart.push(selectedProduct);
     button.textContent = "Quitar del carrito";
@@ -112,6 +112,18 @@ function renderCart() {
     });
   });
 }
+
+emptyCart.addEventListener("click", (event) => {
+  event.preventDefault();
+  cart = [];
+  cartContainer.innerHTML = ""; 
+  localStorage.removeItem("cart");
+  const addToCartButtons = document.querySelectorAll(".js-add-to-cart");
+  addToCartButtons.forEach((button) => {
+    button.textContent = "Añadir al carrito";
+    button.classList.remove("selected");
+  });
+});
 
 fetch(url)
   //convierte a json
