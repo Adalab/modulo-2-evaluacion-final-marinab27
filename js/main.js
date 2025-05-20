@@ -8,6 +8,7 @@ const cartContainer = document.querySelector(".js-cart-container");
 
 let products = []; //array para los productos
 let cart = []; // array vacío para el carrito
+let savedCart = localStorage.getItem("cart");
 
 function renderProducts(products) {
   for (let product of products) {
@@ -18,7 +19,7 @@ function renderProducts(products) {
             <p>${product.title}</p>
             <div class="button-container">
             <p class="price">${product.price}€</p>
-            <button class="js-add-to-cart" data-id="${product.id}">Añadir al carrito</button></div>            
+            <button class="js-add-to-cart" id="${product.id}">Añadir al carrito</button></div>            
         `; // pinta el contenido del div
     productContainer.appendChild(card); // añade el card al contenedor productcontainer
   }
@@ -53,22 +54,24 @@ const handleAddToCart = (event) => {
   event.preventDefault();
   const button = event.currentTarget;
   //el id del producto lo pasa a un número
-  const productId = parseInt(button.dataset.id);
+  const productId = parseInt(button.id);
   const selectedProduct = products.find((product) => product.id === productId);
 
-  // Si ya está en el carrito, lo quitamos
-  const cartProduct = cart.findIndex((item) => item.id === productId);
   //-1 implica que no existe porque no existe ese número en el array del carro, si el producto no está lo añade y si está, no hace nada
-  if (cartProduct === -1) {
+  if (!cart.some((product) => product.id === productId)) {
     cart.push(selectedProduct);
-    button.textContent = "Añadido";
+    button.textContent = "Quitar del carrito";
     button.classList.add("selected");
+  } else {
+    let cartProductIndex = cart.find((product) => product.id === productId);
+    cart.splice(cartProductIndex, 1);
+    button.textContent = "Añadir al carrito";
+    button.classList.remove("selected");
   }
 
   renderCart();
   //añadir el local storage
   localStorage.setItem("cart", JSON.stringify(cart));
-  // MARINA HAZ ESTO MAÑANA JODER ^^^^^^^^^^^^
 };
 
 function renderCart() {
@@ -78,26 +81,26 @@ function renderCart() {
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = `
+    <button class="js-remove-from-cart" id="${cartProduct.id}">X</button>
       <img src="${cartProduct.image}" alt="${cartProduct.title}" class="remove-card-img">
       <p>${cartProduct.title}</p>
       <p class="price">${cartProduct.price}€</p>
-      <button class="js-remove-from-cart" data-id="${cartProduct.id}">Eliminar</button>
     `;
     cartContainer.appendChild(card);
   }
 
   const removeCartProducts = document.querySelectorAll(".js-remove-from-cart");
+
   removeCartProducts.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const id = parseInt(event.currentTarget.dataset.id);
+      const id = parseInt(event.currentTarget.id);
       // Eliminar del carrito se queda con los id que no son iguales al id del producto que se quiere eliminar
-      cart = cart.filter((item) => item.id !== id);
+      cart = cart.filter((cartProduct) => cartProduct.id !== id);
 
       // Actualizar el botón principal en la lista de productos
-      // Este selector busca
-      const selectedCartButton = document.querySelector(
-        `.js-add-to-cart[data-id="${id}"]`
-      );
+      // Este selector busca los elementoos en el DOM que tengan el id
+      const selectedCartButton = document.getElementById(id);
+
       if (selectedCartButton) {
         selectedCartButton.textContent = "Añadir al carrito";
         selectedCartButton.classList.remove("selected");
@@ -105,6 +108,7 @@ function renderCart() {
 
       // Volver a renderizar el carrito
       renderCart();
+      localStorage.setItem("cart", JSON.stringify(cart));
     });
   });
 }
@@ -119,3 +123,8 @@ fetch(url)
     //pinta los productos
     renderProducts(products);
   });
+
+if (savedCart != null) {
+  cart = JSON.parse(savedCart);
+  renderCart();
+}
