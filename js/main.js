@@ -20,7 +20,7 @@ function renderProducts(products) {
             <p>${product.title}</p>
             <div class="button-container">
             <p class="price">${product.price}€</p>
-            <button class="js-add-to-cart" id="${product.id}">Añadir al carrito</button></div>            
+            <button class="js-add-to-cart" id="${product.id}">Add to cart</button></div>            
         `; // pinta el contenido del div
     productContainer.appendChild(card); // añade el card al contenedor productcontainer
   }
@@ -60,12 +60,12 @@ const handleAddToCart = (event) => {
 
   if (!cart.some((product) => product.id === productId)) {
     cart.push(selectedProduct);
-    button.textContent = "Quitar del carrito";
+    button.textContent = "Remove from cart";
     button.classList.add("selected");
   } else {
     let cartProductIndex = cart.find((product) => product.id === productId);
     cart.splice(cartProductIndex, 1);
-    button.textContent = "Añadir al carrito";
+    button.textContent = "Add to cart";
     button.classList.remove("selected");
   }
 
@@ -81,7 +81,7 @@ function renderCart() {
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = `
-    <button class="js-remove-from-cart" id="${cartProduct.id}">X</button>
+    <button class="js-remove-from-cart" id="${cartProduct.id}">⨉</button>
       <img src="${cartProduct.image}" alt="${cartProduct.title}" class="remove-card-img">
       <p>${cartProduct.title}</p>
       <p class="price">${cartProduct.price}€</p>
@@ -97,12 +97,11 @@ function renderCart() {
       // Eliminar del carrito se queda con los id que no son iguales al id del producto que se quiere eliminar
       cart = cart.filter((cartProduct) => cartProduct.id !== id);
 
-      // Actualizar el botón principal en la lista de productos
       // Este selector busca los elementoos en el DOM que tengan el id
       const selectedCartButton = document.getElementById(id);
 
       if (selectedCartButton) {
-        selectedCartButton.textContent = "Añadir al carrito";
+        selectedCartButton.textContent = "Add to cart";
         selectedCartButton.classList.remove("selected");
       }
 
@@ -116,11 +115,11 @@ function renderCart() {
 emptyCart.addEventListener("click", (event) => {
   event.preventDefault();
   cart = [];
-  cartContainer.innerHTML = ""; 
+  cartContainer.innerHTML = "";
   localStorage.removeItem("cart");
   const addToCartButtons = document.querySelectorAll(".js-add-to-cart");
   addToCartButtons.forEach((button) => {
-    button.textContent = "Añadir al carrito";
+    button.textContent = "Add to cart";
     button.classList.remove("selected");
   });
 });
