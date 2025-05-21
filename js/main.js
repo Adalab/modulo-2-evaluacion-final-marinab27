@@ -1,5 +1,4 @@
 "use strict";
-console.log("Holi Yanelis estoy comprobando que está conectado el js");
 const url = "https://fakestoreapi.com/products";
 
 const productContainer = document.querySelector(".js-product-container"); //url de la api
